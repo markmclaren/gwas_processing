@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:4.6.14
+FROM continuumio/miniconda3:main
 
 # Setup LDSC
 COPY ldsc /ldsc
@@ -6,12 +6,12 @@ RUN conda env create -f /ldsc/environment.yml
 RUN echo "source activate ldsc" > ~/.bashrc
 
 # Compile bcftools because conda version has dependency problem
-RUN apt-get update && apt-get install -y make gcc zlib1g-dev libbz2-dev lzma-dev lzma liblzma-dev
-RUN curl -SL https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2 \
-| tar -xvj \
-&& bcftools-1.9/configure \
-&& make -C bcftools-1.9 \
-&& mv bcftools-1.9/bcftools /opt/conda/envs/ldsc/bin
+RUN apt-get update && apt-get install -y make gcc zlib1g-dev libbz2-dev lzma-dev lzma liblzma-dev curl libcurl4-openssl-dev
+RUN curl -SL https://github.com/samtools/bcftools/releases/download/1.18/bcftools-1.18.tar.bz2 \
+    | tar -xvj \
+    && bcftools-1.18/configure \
+    && make -C bcftools-1.18 \
+    && mv bcftools-1.18/bcftools /opt/conda/envs/ldsc/bin
 
 
 RUN mkdir -p /home/bin
