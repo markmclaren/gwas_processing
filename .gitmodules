@@ -1,4 +1,4 @@
 [submodule "ldsc"]
 	path = ldsc
-	url = git@github.com:explodecomputer/ldsc.git
+	url = https://github.com/explodecomputer/ldsc.git
 	branch = master
